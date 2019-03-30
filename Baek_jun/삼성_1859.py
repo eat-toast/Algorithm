@@ -1,28 +1,19 @@
-def gen():
-    yield list(map(int, input().split(' ')))
+def solve(num_list):
 
-def solve(num_list,profit):
+    profit = 0 # 사재기로 획득한 이득
 
-    max_num = max(num_list)
-    max_idx = [idx for idx, x in enumerate(num_list) if x == max_num][0]
+    while len(num_list) > 1:
+        max_num = max(num_list)
+        max_idx = num_list.index(max_num)
 
-    while len(num_list) > 0:
         if max_idx == 0:
-            num_list = num_list[max_idx + 1:]
+            num_list.pop(0)
 
-        elif start_index == max_idx:
-            num_list = []
         else:
-            buy = sum(num_list[start_index:max_idx])
-            sell = num_list[max_idx] * (max_idx - start_index) - buy
+            buy = sum(num_list[:max_idx])
+            sell = num_list[max_idx] * max_idx - buy
             profit += sell
-
             num_list = num_list[max_idx + 1:]
-            if len(num_list) == 0:
-                break
-            else:
-                max_num = max(num_list)
-                max_idx = [idx for idx, x in enumerate(num_list) if x == max_num][0]
 
     return profit
 
@@ -32,12 +23,8 @@ if __name__ == "__main__":
     # 반복문 시작
     for x in range(T):
         N = int(input())
+        num_list = list(map(int, input().split(' ')))
 
-        start_index = 0
-        end_index = N - 1
-        mile_stone = 0
-        profit = 0
+        profit = solve(num_list)
 
-        for num_list in gen():
-            profit = solve(num_list, profit)
-            print('#', str(x + 1), ' ', profit, sep='')
+        print('#', str(x + 1), ' ', profit, sep='')
