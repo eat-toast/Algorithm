@@ -35,3 +35,4 @@ for k in combinations(Chiken, M):
     result = min(result, s)
 
 print(result)
+
